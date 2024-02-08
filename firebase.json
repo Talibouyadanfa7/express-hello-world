@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "BOLYA",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
