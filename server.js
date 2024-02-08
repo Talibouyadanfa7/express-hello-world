@@ -3,14 +3,16 @@ const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const app = express();
-const SignUpData = require('./model/signupData.js');
-const SignInData = require('./model/signupData.js');
+
 
 app.use(express.static(path.join(__dirname, 'bolya_front')));
 app.use('/script',express.static(path.join(__dirname, "script")));
+app.use('/model',express.static(path.join(__dirname, "model")));
 app.use(express.json()); // Middleware pour parser les requêtes JSON
 const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: true }));
+const SignUpData = require('./model/signupData.js');
+const SignInData = require('./model/signupData.js');
 const port = process.env.PORT || 3000;
 
 const apiURL="http://localhost:3010/api/auth"
