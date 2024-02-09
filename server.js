@@ -118,5 +118,6 @@ app.use('*', (req,res) => {
     })
     .end()
 })
-// Démarrez le serveur
-exports.app = functions.https.onRequest(app)
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
