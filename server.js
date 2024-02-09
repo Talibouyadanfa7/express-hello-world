@@ -2,10 +2,16 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
+<<<<<<< HEAD
 const functions = require("firebase-functions")
+=======
+const bodyParser = require('body-parser'); // Importez le module bodyParser ici
+
+>>>>>>> 95f14e750fed3ebb3cb165b4b7a96334ffecdeda
 const app = express();
 
 
+<<<<<<< HEAD
 app.use(express.static(path.join(__dirname, 'bolya_front')));
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "script")));
@@ -18,6 +24,32 @@ const port = process.env.PORT || 3000;
 
 const apiURL="http://localhost:3010/api/auth"
 
+=======
+// Middleware pour servir les fichiers statiques
+app.use(express.static(path.join(__dirname, 'bolya')));
+app.use('/script',express.static(path.join(__dirname, "script")));
+app.use('/model',express.static(path.join(__dirname, "model")));
+app.use('/bolya_front',express.static(path.join(__dirname, "bolya_front")));
+// Modèle pour les données d'identification (signin)
+class SignInData {
+    constructor(phoneNumber, password) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
+}
+
+// Modèle pour les données d'inscription (signup)
+class SignUpData {
+    constructor(firstname,lastname, phoneNumber, password,accountChoice) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.accountChoice = accountChoice
+    }
+}
+// Endpoint pour la page d'accueil
+>>>>>>> 95f14e750fed3ebb3cb165b4b7a96334ffecdeda
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya_front/index.html'));
 });
@@ -74,6 +106,19 @@ app.post('/signup', async (req, res) => {
         res.status(error.response.status).json(error.response.data);
     }
 });
-
+// Catch all handler for all other request.
+app.use('*', (req,res) => {
+  res.json({
+      at: new Date().toISOString(),
+      method: req.method,
+      hostname: req.hostname,
+      ip: req.ip,
+      query: req.query,
+      headers: req.headers,
+      cookies: req.cookies,
+      params: req.params
+    })
+    .end()
+})
 // Démarrez le serveur
 exports.app = functions.https.onRequest(app)
