@@ -14,9 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware pour servir les fichiers statiques
 app.use(express.static(path.join(__dirname, 'bolya')));
-
-app.use(express.static(path.join(__dirname, '..')));
-
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
 app.use('/bolya_front',express.static(path.join(__dirname, "bolya_front")));
