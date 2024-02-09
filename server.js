@@ -17,17 +17,10 @@ app.use('/model',express.static(path.join(__dirname, "model")));
 const SignUpData = require('./model/signupData.js');
 const SignInData = require('./model/signupData.js');
 app.use(express.json()); // Middleware pour parser les requêtes JSON
-const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || 3000;
 
 const apiURL="http://localhost:3010/api/auth"
-
-// Middleware pour servir les fichiers statiques
-app.use(express.static(path.join(__dirname, 'bolya')));
-app.use('/script',express.static(path.join(__dirname, "script")));
-app.use('/model',express.static(path.join(__dirname, "model")));
-app.use('/bolya_front',express.static(path.join(__dirname, "bolya_front")));
 // Modèle pour les données d'identification (signin)
 class SignInData {
     constructor(phoneNumber, password) {
