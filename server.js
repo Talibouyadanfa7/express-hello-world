@@ -11,7 +11,6 @@ const bodyParser = require('body-parser'); // Importez le module bodyParser ici
 const app = express();
 
 
-<<<<<<< HEAD
 app.use(express.static(path.join(__dirname, 'bolya_front')));
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
@@ -24,7 +23,6 @@ const port = process.env.PORT || 3000;
 
 const apiURL="http://localhost:3010/api/auth"
 
-=======
 // Middleware pour servir les fichiers statiques
 app.use(express.static(path.join(__dirname, 'bolya')));
 app.use('/script',express.static(path.join(__dirname, "script")));
@@ -49,7 +47,7 @@ class SignUpData {
     }
 }
 // Endpoint pour la page d'accueil
->>>>>>> 95f14e750fed3ebb3cb165b4b7a96334ffecdeda
+
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya_front/index.html'));
 });
