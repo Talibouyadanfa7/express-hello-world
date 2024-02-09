@@ -16,8 +16,24 @@ app.use(express.static(path.join(__dirname, 'bolya')));
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
 app.use('/bolya_front',express.static(path.join(__dirname, "bolya_front")));
-const SignUpData = require('./bolya/model/signupData.js');
-const SignInData = require('./bolya/model/signupData.js');
+// Modèle pour les données d'identification (signin)
+class SignInData {
+    constructor(phoneNumber, password) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
+}
+
+// Modèle pour les données d'inscription (signup)
+class SignUpData {
+    constructor(firstname,lastname, phoneNumber, password,accountChoice) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.accountChoice = accountChoice
+    }
+}
 // Endpoint pour la page d'accueil
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya', 'bolya_front', 'index.html'));
