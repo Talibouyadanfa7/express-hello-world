@@ -1,23 +1,12 @@
 {
   "scripts": {
-    "build": "spack && npm run static && npm run prerender",
-    "static": "cp static/* dist",
-    "prerender": "ts-node tools/prerender.ts"
+    "start": "node server.js"
   },
-  "directories": {
-    "serve": "bolya_front"
-  },
-  "files": [
-    "bolya_front",
-    "server.js"
-  ],
   "name": "bolya",
   "version": "1.0.0",
   "description": "This is a ecommerce app",
   "main": "server.js",
-  "engines": {
-    "node": "16.x"
-  },
+
   "author": "papa",
   "license": "ISC",
   "dependencies": {
