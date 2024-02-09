@@ -2,8 +2,7 @@ const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const bodyParser = require('body-parser'); // Importez le module bodyParser ici
-const SignUpData = require('./bolya/model/signupData.js');
-const SignInData = require('./bolya/model/signupData.js');
+
 const app = express();
 const port = process.env.PORT || 3000;
 const apiURL = "http://localhost:3010/api/auth";
@@ -17,7 +16,8 @@ app.use(express.static(path.join(__dirname, 'bolya')));
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
 app.use('/bolya_front',express.static(path.join(__dirname, "bolya_front")));
-
+const SignUpData = require('./bolya/model/signupData.js');
+const SignInData = require('./bolya/model/signupData.js');
 // Endpoint pour la page d'accueil
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya', 'bolya_front', 'index.html'));
