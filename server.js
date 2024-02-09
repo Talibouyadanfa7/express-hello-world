@@ -12,12 +12,11 @@ const apiURL = "http://localhost:3010/api/auth";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-<<<<<<< HEAD
 // Middleware pour servir les fichiers statiques
 app.use(express.static(path.join(__dirname, 'bolya')));
-=======
+
 app.use(express.static(path.join(__dirname, '..')));
->>>>>>> 8ea2303aabee41aed3a5f78ae568522d7b8adba5
+
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
 app.use('/bolya_front',express.static(path.join(__dirname, "bolya_front")));
