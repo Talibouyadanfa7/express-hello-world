@@ -14,7 +14,7 @@ const app = express();
 <<<<<<< HEAD
 app.use(express.static(path.join(__dirname, 'bolya_front')));
 app.use('/script',express.static(path.join(__dirname, "script")));
-app.use('/model',express.static(path.join(__dirname, "script")));
+app.use('/model',express.static(path.join(__dirname, "model")));
 const SignUpData = require('./model/signupData.js');
 const SignInData = require('./model/signupData.js');
 app.use(express.json()); // Middleware pour parser les requêtes JSON
