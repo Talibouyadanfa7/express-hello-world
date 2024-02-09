@@ -2,12 +2,12 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-<<<<<<< HEAD
+
 const functions = require("firebase-functions")
-=======
+
 const bodyParser = require('body-parser'); // Importez le module bodyParser ici
 
->>>>>>> 95f14e750fed3ebb3cb165b4b7a96334ffecdeda
+
 const app = express();
 
 
