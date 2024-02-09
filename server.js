@@ -5,7 +5,7 @@ const axios = require('axios');
 const app = express();
 
 
-app.use(express.static(path.join(__dirname, 'bolya_front')));
+app.use(express.static(path.join(__dirname, '..')));
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
 app.use(express.json()); // Middleware pour parser les requêtes JSON
