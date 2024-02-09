@@ -75,7 +75,20 @@ app.post('/signup', async (req, res) => {
         res.status(error.response.status).json(error.response.data);
     }
 });
-
+// Catch all handler for all other request.
+app.use('*', (req,res) => {
+  res.json({
+      at: new Date().toISOString(),
+      method: req.method,
+      hostname: req.hostname,
+      ip: req.ip,
+      query: req.query,
+      headers: req.headers,
+      cookies: req.cookies,
+      params: req.params
+    })
+    .end()
+})
 // Démarrez le serveur
 app.listen(port, () => {
     console.log(`Server is up on port ${port}`);
