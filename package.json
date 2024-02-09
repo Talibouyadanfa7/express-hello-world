@@ -1,15 +1,29 @@
 {
+  "scripts": {
+    "build": "spack && npm run static && npm run prerender",
+    "static": "cp static/* dist",
+    "prerender": "ts-node tools/prerender.ts"
+  },
+  "directories": {
+    "serve": "bolya_front"
+  },
+  "files": [
+    "bolya_front",
+    "server.js"
+  ],
   "name": "bolya",
   "version": "1.0.0",
   "description": "This is a ecommerce app",
-  "scripts": {
-    "start": "node server.js"
+  "main": "server.js",
+  "engines": {
+    "node": "16.x"
   },
   "author": "papa",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.7",
     "express": "^4.18.2",
+    "firebase-functions": "^4.7.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
