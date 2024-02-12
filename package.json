@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is a ecommerce app",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "papa",
   "license": "ISC",
