@@ -1,15 +1,15 @@
+
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
+
+
 const bodyParser = require('body-parser'); // Importez le module bodyParser ici
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 
-// Middleware pour parser les requêtes JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Middleware pour servir les fichiers statiques
 app.use(express.static(path.join(__dirname, "bolya_front")));
@@ -20,6 +20,15 @@ app.use('/model',express.static(path.join(__dirname, "model")));
 app.use('/utils',express.static(path.join(__dirname, "utils")));
 
 
+app.use(express.static(path.join(__dirname, 'bolya_front')));
+app.use('/script',express.static(path.join(__dirname, "script")));
+app.use('/model',express.static(path.join(__dirname, "model")));
+app.use(express.json()); // Middleware pour parser les requêtes JSON
+app.use(express.urlencoded({ extended: true }));
+
+
+const apiURL="http://localhost:3010/api/auth"
+// Modèle pour les données d'identification (signin)
 
 // Endpoint pour la page d'accueil
 
@@ -44,11 +53,15 @@ class SignUpData {
     }
 }
 // Endpoint pour la page d'inscription
-app.get('/sign-up', function(req, res) {
-    res.sendFile(path.join(__dirname, 'bolya_front', 'sign-up.html'));
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'bolya_front/index.html'));
 });
 
-// Endpoint pour la page de connexion
+app.get('/sign-up', function(req, res) {
+    res.sendFile(path.join(__dirname, 'bolya_front/sign-up.html'));
+});
+
 app.get('/sign-in', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya_front', 'sign-in.html'));
 });
@@ -56,6 +69,12 @@ app.get('/sign-in', function(req, res) {
 // Endpoint pour la page d'accueil (à vérifier, peut-être pas nécessaire si vous utilisez déjà '/')
 app.get('/home', function(req, res) {
     res.sendFile(path.join(__dirname,  'bolya_front', 'index.html'));
+    res.sendFile(path.join(__dirname, 'bolya_front/sign-in.html'));
+});
+
+app.get('/home', function(req,res) {
+    res.sendFile(path.join(__dirname, 'bolya_front/index.html'));
+
 });
 
 app.get('/forget-password', function(req, res) {
@@ -76,17 +95,17 @@ app.get('/admin-create-course', function(req, res) {
     res.sendFile(path.join(__dirname,  'bolya_front', 'instructor-create-course.html'));
 });
 
-const apiURL = "http://localhost:3010/api/auth";
 
 // Endpoint pour la connexion (signin)
 app.post('/signin', async (req, res) => {
     try {
         // Récupérer les données du corps de la requête
         const { phoneNumber, password } = req.body;
-        const signInData = new SignInData(phoneNumber, password);
+        const signInData = new SignInData( phoneNumber, password);
+
 
         // Effectuer une requête POST à l'API pour la connexion
-        const response = await axios.post(`${apiURL}/signin`, signInData);
+        const response = await axios.post(`${apiURL}/signup`, signInData);
 
         // Si la connexion est réussie, renvoyer les données de l'utilisateur
         res.json(response.data);
@@ -101,35 +120,26 @@ app.post('/signin', async (req, res) => {
 app.post('/signup', async (req, res) => {
     try {
         // Récupérer les données du corps de la requête
-        const { firstname, lastname, phoneNumber, password, accountChoice } = req.body;
-        const signUpData = new SignUpData(firstname, lastname, phoneNumber, password, accountChoice);
+
+        const {firstname,lastname, phoneNumber, password,accountChoice } = req.body;
+        console.log(req.body)
+        const signUpData = new SignUpData(firstname,lastname, phoneNumber, password,accountChoice);
 
         // Effectuer une requête POST à l'API pour l'inscription
         const response = await axios.post(`${apiURL}/signup`, signUpData);
-
+        console.log(1)
         // Si l'inscription est réussie, renvoyer les données de l'utilisateur
         res.json(response.data);
     } catch (error) {
-        console.error('Erreur lors de l\'inscription :', error.response.data);
+        console.error('Erreur lors de l\'inscription dd :', error.response.data);
         // Renvoyer une erreur avec le code d'erreur de l'API
         res.status(error.response.status).json(error.response.data);
     }
 });
-app.use('*', (req,res) => {
-    res.json({
-        at: new Date().toISOString(),
-        method: req.method,
-        hostname: req.hostname,
-        ip: req.ip,
-        query: req.query,
-        headers: req.headers,
-        cookies: req.cookies,
-        params: req.params
-    })
-        .end()
-})
 
-// Démarrez le serveur
+
 app.listen(port, () => {
-    console.log(`Server is up on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
+
+
