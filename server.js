@@ -2,10 +2,8 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-
-
-const bodyParser = require('body-parser'); // Importez le module bodyParser ici
-
+const bodyParser = require('body-parser');
+// Importez le module bodyParser ici
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -13,46 +11,26 @@ const port = process.env.PORT || 3000;
 
 // Middleware pour servir les fichiers statiques
 app.use(express.static(path.join(__dirname, "bolya_front")));
-
-
 app.use('/script',express.static(path.join(__dirname, "script")));
 app.use('/model',express.static(path.join(__dirname, "model")));
 app.use('/utils',express.static(path.join(__dirname, "utils")));
-
-
-app.use(express.static(path.join(__dirname, 'bolya_front')));
-app.use('/script',express.static(path.join(__dirname, "script")));
-app.use('/model',express.static(path.join(__dirname, "model")));
 app.use(express.json()); // Middleware pour parser les requêtes JSON
 app.use(express.urlencoded({ extended: true }));
 
 
-const apiURL="http://localhost:3010/api/auth"
-// Modèle pour les données d'identification (signin)
 
-// Endpoint pour la page d'accueil
+const VideoData = require("./model/videoData");
+const SignUpData = require("./model/signUpData");
+const SignInData = require("./model/signUpData");
+const apiURL="http://localhost:3020/api/auth"
+
+const apiURL2="http://localhost:3020/api"
+
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya_front', 'index.html'));
 });
-class SignInData {
-    constructor(phoneNumber, password) {
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-    }
-}
 
-// Modèle pour les données d'inscription (signup)
-class SignUpData {
-    constructor(firstname,lastname, phoneNumber, password,accountChoice) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.accountChoice = accountChoice
-    }
-}
-// Endpoint pour la page d'inscription
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'bolya_front/index.html'));
@@ -136,6 +114,28 @@ app.post('/signup', async (req, res) => {
         res.status(error.response.status).json(error.response.data);
     }
 });
+
+
+app.post('/admin-create-course', async (req, res) => {
+    // Récupérer les données du formulaire depuis req.body
+    const formData = req.body;
+    console.log(req.body)
+    const imageFile = req.files['image'][0];
+    const videoFile = req.files['videoResume'][0];
+    formData['image'] = imageFile;
+    formData['videoResume'] = videoFile;
+    const  headers = {"x-access-token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM0YjVlMGRmMWJhMzJjYzA5YWRhZGUiLCJleHAiOjE3MDc5NDMxMjIsImlhdCI6MTcwNzkxNDMyMn0.eKQ6WOTe09TshNou44HKa1z3xcOzme32kl9JCUFkX8CFcUoDaFFuQFvoZcmg9kdCBiVPmobO13vtwsXpayycsFMiOWAZ2kg6XXu40zneaVEzUnZ6qjqgfkTxknIgrnM4ha2sZNbbK1CBTCqoTlFAhWJyRfUJtdK8lPuBqK_RKyxOEefDQY0B0ibnj4uBV_wLAGeBfB9E6DbCfqiCyKTZZYoNaIodQQQT7XLSSRvSXdz3ymyih_jY_FqLMMcV5KDq2TPJ9Bn_nfKcCOQe3gplhRHwbJlFrNTmy1LSEyax0U_fTReqsErvriz6INUGYV6xambmqWnpVz-Pz2TSeNY9LA"}
+    ////console.log(reponse); // Afficher les données reçues dans la console
+    const response = await axios.post(`${apiURL2}/courses/createCoursesByAdmin`, formData, { headers
+    });
+    // Récupérer les fichiers soumis
+
+    // Vous pouvez effectuer ici tout traitement nécessaire avec les données reçues
+    res.send('Formulaire soumis avec succès!');
+});
+
+
+
 
 
 app.listen(port, () => {
