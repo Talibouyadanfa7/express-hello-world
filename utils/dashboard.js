@@ -21,7 +21,7 @@ function changeContent(page) {
                 '\t\t\t\t\t\t<!-- Search and select START -->\n' +
                 '\t\t\t\t\t\t<div class="row g-3 align-items-center justify-content-between mb-4">\n' +
                 '\t\t\t\t\t\t\t<!-- Content -->\n' +
-                '\t\t\t\t\t\t\t<div class="col-md-7">\n' +
+                '\t\t\t\t\t\t\t<div class="col-md-6">\n' +
                 '\t\t\t\t\t\t\t\t<form class="rounded position-relative">\n' +
                 '\t\t\t\t\t\t\t\t\t<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">\n' +
                 '\t\t\t\t\t\t\t\t\t<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">\n' +
@@ -29,7 +29,7 @@ function changeContent(page) {
                 '\t\t\t\t\t\t\t</button>\n' +
                 '\t\t\t\t\t\t\t\t</form>\n' +
                 '\t\t\t\t\t\t\t</div>\n' +
-                '\t\t\t\t\t\t\t<div class="col-md-1">\n' +
+                '\t\t\t\t\t\t\t<div class="col-md-2">\n' +
 
                 '\t\t\t\t\t\t\t\t\t<a href="admin-create-course" class="btn btn-success-soft mb-2 mb-sm-0">Ajouter un Cours</a>\n' +
                 '\t\t\t\t\t\t\t</div>\n' +

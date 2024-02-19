@@ -167,8 +167,8 @@
 								<div class="mb-4 hidden">
 									<label for="accountChoice" class="form-label">Type de Compte </label>
 									<div class="input-group input-group-lg">
-										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-phone"></i></span>
-										<input type="text" class="form-control border-0 bg-light rounded-end ps-1"  value="driver" placeholder="Telephone" id="accountChoice" disabled>>
+										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-person-badge"></i></span>
+										<input type="text" class="form-control border-0 bg-light rounded-end ps-1"  value="client" placeholder="Telephone" id="accountChoice" disabled>>
 									</div>
 								</div>
 
@@ -231,7 +231,7 @@
 
 							<!-- Sign up link -->
 							<div class="mt-4 text-center">
-								<span>Already have an account?<a href="sign-in.html"> Sign in here</a></span>
+								<span>Already have an account?<a href="sign-in"> Sign in here</a></span>
 							</div>
 						</div>
 					</div>
@@ -263,21 +263,46 @@
 				lastname: $('#lastname').val(),
 				phoneNumber: $('#exampleInputEmail1').val(),
 				password: $('#inputPassword5').val(),
-				accountChoice: $('#accountChoice').val(),
+				//accountChoice: $('#accountChoice').val(),
 			};
 			console.log(formData)
 			// Envoyer les données au backend via AJAX
-			$.post('/signup', formData)
+			const headers = {"Content-Type":"application/json"}
+			$.post('/signup', formData,{headers})
 					.done(function(response) {
+						console.log(1)
+						console.log(2)
+						console.log(response);
+						var token = response.accessToken;
+						console.log(token);
+						var phone = formData.phoneNumber
+						console.log(phone);
+						// Store the token securely, for example in local storage
+						localStorage.setItem('token', token);
+						console.log(3)
+						localStorage.setItem('phone', phone);
+						// Si l'inscription est réussie, renvoyer les données de l'utilisateur
+
+// Retrieve the token from local storage
+						var token2 = localStorage.getItem('token');
+
+						if (token2) {
+							// Token exists, you can use it for further requests
+							console.log('Token:', token2);
+						} else {
+							// Token does not exist or has expired, handle this accordingly
+							console.log('Token not found or expired.');
+						}
+
 						console.log('Inscription réussie:', response);
-						toastr.success('Inscription reussi.', 'Succès', {
+						toastr.success('Code envoyè par sms.', 'Succès', {
 							timeOut: 3000, // Fermer automatiquement après 3 secondes
 							positionClass: 'toast-top-right', // Afficher en haut à droite de l'écran
 							closeButton: true,
 							progressBar: true,// Ajouter un bouton de fermeture à la notification
 						});
 						setTimeout(function() {
-							window.location.href = 'home'; // Redirection vers la page d'accueil
+							window.location.href = 'verify-code'; // Redirection vers la page d'accueil
 						}, 2000);
 						// Faire quelque chose avec la réponse, par exemple rediriger l'utilisateur vers une page de connexion
 					})

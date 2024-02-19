@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from eduport.webestica.com/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Feb 2024 09:30:36 GMT -->
+<head>
+    <title>Eduport - LMS, Education and Course Theme</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Webestica.com">
+    <meta name="description" content="Eduport- LMS, Education and Course Theme">
+    <!-- Boxicons CSS -->
+
+    <style>
+        #toast-container > .toast-error {
+            color: #7c1300 !important;
+            /* Bordure */
+            border-radius: 8px;
+            border: 3px solid #7c1300;
+
+            /* Autres styles */
+            background-color: #fff; /* Couleur de fond */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre */
+            overflow: hidden;	} /*
+
+/* Styles spécifiques pour les notifications de succès */
+        #toast-container > .toast-success {
+            border: 3px solid #9a7ace;
+            color: #9a7ace;
+
+            /* Autres styles */
+            background-color: #fff; /* Couleur de fond */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre */
+            overflow: hidden;	} /*
+
+            /* Import Google font - Poppins */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        :where(.container, form, .input-field, header) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            padding: 30px 65px;
+            border-radius: 12px;
+            row-gap: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container header {
+            height: 65px;
+            width: 65px;
+            background: #7952B3;
+            color: #fff;
+            font-size: 2.5rem;
+            border-radius: 50%;
+        }
+        .container h4 {
+            font-size: 1.25rem;
+            color: #333;
+            font-weight: 500;
+        }
+        form .input-field {
+            flex-direction: row;
+            column-gap: 10px;
+        }
+        .input-field input {
+            height: 45px;
+            width: 42px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 1.125rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .input-field input:focus {
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+        .input-field input::-webkit-inner-spin-button,
+        .input-field input::-webkit-outer-spin-button {
+            display: none;
+        }
+        form button {
+            margin-top: 25px;
+            width: 100%;
+            color: #fff;
+            font-size: 1rem;
+            border: none;
+            padding: 9px 0;
+            cursor: pointer;
+            border-radius: 6px;
+            pointer-events: none;
+            background: #7952B3;
+            transition: all 0.2s ease;
+        }
+        form button.active {
+            background: #7952B3;
+            pointer-events: auto;
+        }
+        form button:hover {
+            background: #7952B3;
+
+
+        }
+
+
+	</style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Google Font -->
+
+
+
+</head>
+
+<body class="bg-primary bg-opacity-15" >
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+    <div class="container">
+        <header>
+            <i class="fas fa-check-circle"></i>
+        </header>
+        <h4>Entrer le code de Vérification</h4>
+        <form action="#" id="codeForm">
+            <div class="input-field">
+                <input id="code1" type="number" />
+                <input id="code2" type="number" disabled />
+                <input id="code3" type="number" disabled />
+                <input id="code4" type="number" disabled />
+                <input id="code5" type="number" disabled />
+                <input  id="code6" type="number" disabled />
+            </div>
+            <button type="submit">Vérifier</button>
+        </form>
+    </div>
+
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Template Functions -->
+<script src="assets/js/functions.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script >
+    $(document).ready(function() {
+        $('#codeForm').submit(function(e) {
+            e.preventDefault(); // Empêche le formulaire d'être soumis normalement
+
+            // Récupérer les données du formulaire
+            const code = $('#code1').val() +
+                $('#code2').val()+
+                $('#code3').val()+
+                $('#code4').val()+
+                $('#code5').val()+$('#code6').val()
+
+            ;
+            const token = localStorage.getItem("token")
+            console.log(token)
+
+            const formData = {
+                phoneNumber:localStorage.getItem("phone"),
+                smsCode: code,
+                token:token
+                //accountChoice: $('#accountChoice').val(),
+            };
+
+           const  headers = {"x-access-token":token}
+            // Envoyer les données au backend via AJAX
+            $.post('/verify-code', formData,{headers})
+                .done(function(response) {
+                    console.log('Connexion réussie:', response);
+                    toastr.success('Utilisateur enregistré.', 'Succès', {
+                        timeOut: 3000, // Fermer automatiquement après 3 secondes
+                        positionClass: 'toast-top-right', // Afficher en haut à droite de l'écran
+                        closeButton: true,
+                        progressBar: true,// Ajouter un bouton de fermeture à la notification
+                    });
+                    localStorage.clear();
+                    setTimeout(function() {
+                        window.location.href = 'sign-in'; // Redirection vers la page d'accueil
+                    }, 2000);
+                    // Faire quelque chose avec la réponse, par exemple rediriger l'utilisateur vers une page de connexion
+                })
+                .fail(function(xhr, status, error) {
+                    var response = JSON.parse(xhr.responseText);
+                    var errorMessage = response.message;
+                    console.log(errorMessage);
+                    console.error('Erreur lors de la connexion:', error);
+
+                    // Analyser les erreurs et afficher les notifications Toastr en conséquence
+                    if (errorMessage === 'Code invalide ou expiré') {
+                        toastr.error('Ce code est invalide.', 'Erreur', {
+                            timeOut: 3000, // Fermer automatiquement après 3 secondes
+                            positionClass: 'toast-top-right', // Afficher en haut à droite de l'écran
+                            closeButton: true // Ajouter un bouton de fermeture à la notification
+                        });
+                    } else if (error === 'Utilisateur introuvable') {
+                        toastr.error('Le numéro que vous avez saisi n\'est pas valide.');
+                    } else {
+                        toastr.error('Une erreur s\'est produite lors de l\'inscription.');
+                    }
+                });
+
+        });
+    });
+
+</script>
+<script >
+    const inputs = document.querySelectorAll("input"),
+        button = document.querySelector("button");
+
+    // iterate over all inputs
+    inputs.forEach((input, index1) => {
+        input.addEventListener("keyup", (e) => {
+            // This code gets the current input element and stores it in the currentInput variable
+            // This code gets the next sibling element of the current input element and stores it in the nextInput variable
+            // This code gets the previous sibling element of the current input element and stores it in the prevInput variable
+            const currentInput = input,
+                nextInput = input.nextElementSibling,
+                prevInput = input.previousElementSibling;
+
+            // if the value has more than one character then clear it
+            if (currentInput.value.length > 1) {
+                currentInput.value = "";
+                return;
+            }
+            // if the next input is disabled and the current value is not empty
+            //  enable the next input and focus on it
+            if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+                nextInput.removeAttribute("disabled");
+                nextInput.focus();
+            }
+
+            // if the backspace key is pressed
+            if (e.key === "Backspace") {
+                // iterate over all inputs again
+                inputs.forEach((input, index2) => {
+                    // if the index1 of the current input is less than or equal to the index2 of the input in the outer loop
+                    // and the previous element exists, set the disabled attribute on the input and focus on the previous element
+                    if (index1 <= index2 && prevInput) {
+                        input.setAttribute("disabled", true);
+                        input.value = "";
+                        prevInput.focus();
+                    }
+                });
+            }
+            //if the fourth input( which index number is 3) is not empty and has not disable attribute then
+            //add active class if not then remove the active class.
+            if (!inputs[5].disabled && inputs[5].value !== "") {
+                button.classList.add("active");
+                return;
+            }
+            button.classList.remove("active");
+        });
+    });
+
+    //focus the first input which index is 0 on window load
+    window.addEventListener("load", () => inputs[0].focus());
+
+</script>
+
+</body>
+
+<!-- Mirrored from eduport.webestica.com/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Feb 2024 09:30:36 GMT -->
+</html>
